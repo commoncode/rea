@@ -13,14 +13,23 @@ class Contract(PolymorphicModel, TitleMixin, SlugMixin):
 
 class Clause(TextMixin):
 
-    contract = models.ForeignKey(
-        'Contract')
-
     class Meta:
         app_label = 'rea'
 
 
 class ClauseRule(OrderableRuleMixin):
+
+    clause = models.ForeignKey(
+        'Clause')
+
+    class Meta:
+        app_label = 'rea'
+
+
+class ContractClause(PolymorphicModel):
+
+    contract = models.ForeignKey(
+        'Contract')
 
     clause = models.ForeignKey(
         'Clause')
