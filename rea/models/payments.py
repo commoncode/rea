@@ -2,4 +2,6 @@ from .events import Event
 
 
 class Payment(Event):
-    pass
+
+    class Meta:
+        app_label = 'rea'
