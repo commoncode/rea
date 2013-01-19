@@ -1,10 +1,11 @@
 from django.db import models
 from polymorphic.polymorphic_model import PolymorphicModel
 
+from .events import *
 from .reciprocity import *
 
 
-class Commitment(PolymorphicModel):
+class Commitment(Event):
 
     contract = models.ForeignKey(
         'rea.Contract')
@@ -12,31 +13,32 @@ class Commitment(PolymorphicModel):
     class Meta:
         app_label = "rea"
 
+    def is_fulfilled(self):
+        '''Query the Ledger or Event table for an Event with Event.commitment == self
+        from this we infer that the commitment event has been fulfilled by a
+        transactional event'''
+        try:
+            event = Event.objects.get(commitment=self)
+        except Event.DoesNotExist:
+            return False
+        return True
 
-class CommitmentLine(PolymorphicModel):
+class CommitmentLineMixin(EventLineMixin):
 
     commitment = models.ForeignKey(
         'Commitment')
 
-    agent = models.ForeignKey(
-        'rea.Agent')
+    class Meta:
+        abstract = True
 
-    resource = models.ForeignKey(
-        'rea.Resource')
 
-    quantity = models.PositiveIntegerField()
+class IncrementCommitment(CommitmentLineMixin, Increment):
 
     class Meta:
         app_label = "rea"
 
 
-class IncrementCommitment(CommitmentLine, Increment):
-
-    class Meta:
-        app_label = "rea"
-
-
-class DecrementCommitment(CommitmentLine, Decrement):
+class DecrementCommitment(CommitmentLineMixin, Decrement):
 
     class Meta:
         app_label = "rea"
