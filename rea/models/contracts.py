@@ -2,7 +2,7 @@ from django.db import models
 
 from polymorphic.polymorphic_model import PolymorphicModel
 
-from entropy.base import SlugMixin, OrderableRuleMixin, TitleMixin, TextMixin
+from entropy.base import SlugMixin, OrderingMixin, TitleMixin, TextMixin
 
 
 class Contract(PolymorphicModel, TitleMixin, SlugMixin):
@@ -17,7 +17,7 @@ class Clause(TextMixin):
         app_label = 'rea'
 
 
-class ClauseRule(OrderableRuleMixin):
+class ClauseRule(OrderingMixin):
 
     clause = models.ForeignKey(
         'Clause')
