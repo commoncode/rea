@@ -3,11 +3,11 @@ from polymorphic.polymorphic_model import PolymorphicModel
 
 
 class Reciprocity(PolymorphicModel):
-    '''
+    """
     Through model that links:
 
         * Incrementing/Decrementing Events & Commitments
-    '''
+    """
 
     increment = models.ForeignKey(
         'Increment')

@@ -1,8 +1,6 @@
 from django.db import models
-from polymorphic.polymorphic_model import PolymorphicModel
-
-from .events import *
-from .reciprocity import *
+from rea.models.events import Event, EventLineMixin
+from rea.models.reciprocity import Increment, Decrement
 
 
 class Commitment(Event):
@@ -14,14 +12,17 @@ class Commitment(Event):
         app_label = "rea"
 
     def is_fulfilled(self):
-        '''Query the Ledger or Event table for an Event with Event.commitment == self
+        """
+        Query the Ledger or Event table for an Event with Event.commitment == self
         from this we infer that the commitment event has been fulfilled by a
-        transactional event'''
+        transactional event
+        """
         try:
-            event = Event.objects.get(commitment=self)
+            Event.objects.get(commitment=self)
         except Event.DoesNotExist:
             return False
         return True
+
 
 class CommitmentLineMixin(EventLineMixin):
 

@@ -1,9 +1,7 @@
-import datetime
-
 from django.db import models
 from polymorphic.polymorphic_model import PolymorphicModel
-
-from .reciprocity import *
+from django_xworkflows import models as xwf_models
+from rea.models.reciprocity import Increment, Decrement
 
 
 class Event(PolymorphicModel):
