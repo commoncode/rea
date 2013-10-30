@@ -41,7 +41,6 @@ class SubscriptionClause(Clause):
             DateAtLeastRule.objects.create(date=now, clause=self)
 
     class Meta:
-        abstract = True
         app_label = 'market'
 
 
@@ -56,6 +55,9 @@ class SubscriptionContract(Contract):
 
     customer = models.ForeignKey(Customer)
     enterprise = models.ForeignKey(Enterprise)
+
+    def get_current_state(self):
+        return self.state.state.name
 
     class Meta:
         abstract = True
