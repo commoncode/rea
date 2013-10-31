@@ -1,12 +1,12 @@
 from django.db import models
 from rea.models.events import Event, EventLineMixin
 from rea.models.reciprocity import Increment, Decrement
+from rea.models.resources import Resource
 
 
 class Commitment(Event):
 
-    contract = models.ForeignKey(
-        'rea.Contract')
+    contract = models.ForeignKey('rea.Contract')
 
     class Meta:
         app_label = "rea"
@@ -26,8 +26,7 @@ class Commitment(Event):
 
 class CommitmentLineMixin(EventLineMixin):
 
-    commitment = models.ForeignKey(
-        'Commitment')
+    commitment = models.ForeignKey('Commitment')
 
     class Meta:
         abstract = True

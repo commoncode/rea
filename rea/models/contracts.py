@@ -26,7 +26,8 @@ class Clause(PolymorphicModel):
 
 class ClauseRule(PolymorphicModel, CreatedMixin, ModifiedMixin):
 
-    clause = models.ForeignKey('Clause')
+    clause = models.ForeignKey('Clause',
+        related_name="%(class)s_set")
 
     def clause_passes(self):
         """
@@ -49,7 +50,8 @@ class ClauseRule(PolymorphicModel, CreatedMixin, ModifiedMixin):
 class ContractClause(PolymorphicModel):
 
     contract = models.ForeignKey('Contract')
-    clause = models.ForeignKey('Clause', null=True)
+    clause = models.ForeignKey('Clause', null=True,
+        related_name="%(class)s_set")
 
     class Meta:
         app_label = 'rea'

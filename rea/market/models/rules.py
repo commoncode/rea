@@ -22,5 +22,3 @@ class DateAtLeastRule(ClauseRule):
 
     class Meta:
         app_label = 'market'
-
-

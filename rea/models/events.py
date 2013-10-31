@@ -29,13 +29,11 @@ class EventLineMixin(PolymorphicModel):
 
     # uuid = models.UUIDField() TODO get this from UUIDMixin
 
-    agent = models.ForeignKey(
-        'Agent')
-
-    resource = models.ForeignKey(
-        'Resource')
+    agent = models.ForeignKey('Agent')
 
     quantity = models.PositiveIntegerField()
+
+    resource = models.ForeignKey('Resource')
 
     class Meta:
         app_label = "rea"
