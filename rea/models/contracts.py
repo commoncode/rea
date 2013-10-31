@@ -21,7 +21,7 @@ class Contract(xwf_models.WorkflowEnabled, PolymorphicModel, TitleMixin):
 class Clause(PolymorphicModel):
 
     class Meta:
-        app_label = 'rea'
+        app_label = "rea"
 
 
 class ClauseRule(PolymorphicModel, CreatedMixin, ModifiedMixin):
@@ -34,17 +34,11 @@ class ClauseRule(PolymorphicModel, CreatedMixin, ModifiedMixin):
         Test whether the current clause passes or fails. Returns
         either True or False.
         """
-        # IMPORTANT: This should return a NonImplementedError, as this
-        # method should be overridden by the Parent class. Currently
-        # this does -not- work in Django-Polymorphic, and MUST be fixed.
-        logger.warning("%s: Clause is being forced to always pass." %
-            self.__class__)
-        return True
-        # raise NotImplementedError(
-        #     "Must override clause_passes method for each rule")
+        raise NotImplementedError(
+            "Must override clause_passes method for each rule")
 
     class Meta:
-        app_label = 'rea'
+        app_label = "rea"
 
 
 class ContractClause(PolymorphicModel):
@@ -54,4 +48,4 @@ class ContractClause(PolymorphicModel):
         related_name="%(class)s_set")
 
     class Meta:
-        app_label = 'rea'
+        app_label = "rea"

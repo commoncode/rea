@@ -21,4 +21,4 @@ class DateAtLeastRule(ClauseRule):
         return True
 
     class Meta:
-        app_label = 'market'
+        app_label = "market"

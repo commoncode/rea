@@ -27,16 +27,17 @@ class Event(PolymorphicModel):
 
 class EventLineMixin(PolymorphicModel):
 
-    # uuid = models.UUIDField() TODO get this from UUIDMixin
+    agent = models.ForeignKey(
+        'Agent')
 
-    agent = models.ForeignKey('Agent')
+    resource = models.ForeignKey(
+        'Resource')
 
     quantity = models.PositiveIntegerField()
 
-    resource = models.ForeignKey('Resource')
-
     class Meta:
         app_label = "rea"
+        abstract = True
 
 
 class IncrementEvent(EventLineMixin, Increment):
