@@ -1,6 +1,9 @@
+import logging
 from django.conf import settings
 from denormalize.backend.mongodb import MongoBackend
 from denormalize.models import DocumentCollection
+
+logger = logging.getLogger(__name__)
 
 
 REA_MONGO_DB_NAME = getattr(settings,
@@ -43,5 +46,6 @@ class DRFDocumentCollection(DocumentCollection):
         """
         Use Django Rest Framework to serialize our object
         """
-        print self.serializer_class(obj).data
-        return self.serializer_class(obj).data
+        data = self.serializer_class(obj).data
+        logger.debug(data)
+        return data

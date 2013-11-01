@@ -1,7 +1,8 @@
 from polymorphic.polymorphic_model import PolymorphicModel
 from entropy.base import SlugMixin, TitleMixin
 from denormalize.models import DocumentCollection
-from rea.mongo import mongodb
+from rest_framework import serializers
+from rea.mongo import mongodb, DRFDocumentCollection
 
 
 ###########################################################
@@ -16,15 +17,31 @@ class Agent(PolymorphicModel, TitleMixin, SlugMixin):
 
 
 ###########################################################
+#  Model Serializers                                      #
+###########################################################
+
+
+class AgentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the `SubscriptionContract` model
+    """
+    class Meta:
+        model = Agent
+        fields = (
+            "id", "title", "short_title", "slug"
+        )
+
+
+###########################################################
 #  Denormalize Document Collections                       #
 ###########################################################
 
 
-class AgentDocumentCollection(DocumentCollection):
+class AgentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Agent`
     """
-    model = Agent
+    serializer_class = AgentSerializer
     name = "rea_agent"
 
 

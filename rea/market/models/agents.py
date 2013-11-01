@@ -1,5 +1,5 @@
-from rea.models.agents import Agent, AgentDocumentCollection
-from rea.mongo import mongodb
+from rea.models.agents import Agent, AgentSerializer
+from rea.mongo import mongodb, DRFDocumentCollection
 
 
 ###########################################################
@@ -24,23 +24,44 @@ class Enterprise(Agent):
 
 
 ###########################################################
+#  Model Serializers                                      #
+###########################################################
+
+
+class CustomerSerializer(AgentSerializer):
+    """
+    Serializer for the `SubscriptionContract` model
+    """
+    class Meta(AgentSerializer.Meta):
+        model = Customer
+
+
+class EnterpriseSerializer(AgentSerializer):
+    """
+    Serializer for the `SubscriptionContract` model
+    """
+    class Meta(AgentSerializer.Meta):
+        model = Enterprise
+
+
+###########################################################
 #  Denormalize Document Collections                       #
 ###########################################################
 
 
-class CustomerDocumentCollection(AgentDocumentCollection):
+class CustomerDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Customer`
     """
-    model = Customer
+    serializer_class = CustomerSerializer
     name = "market_customer"
 
 
-class EnterpriseDocumentCollection(AgentDocumentCollection):
+class EnterpriseDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Enterprise`
     """
-    model = Enterprise
+    serializer_class = EnterpriseSerializer
     name = "market_enterprise"
 
 

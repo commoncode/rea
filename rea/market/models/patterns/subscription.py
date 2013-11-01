@@ -90,12 +90,12 @@ class SubscriptionClauseDocumentCollection(ClauseDocumentCollection):
     name = "market_subscription_clause"
 
 
-class SubscriptionContractDocumentCollection(ContractDocumentCollection):
-    """
-    A denormalized collection of `SubscriptionContract`
-    """
-    model = SubscriptionContract
-    name = "market_subscription_contract"
+# class SubscriptionContractDocumentCollection(ContractDocumentCollection):
+#     """
+#     A denormalized collection of `SubscriptionContract`
+#     """
+#     model = SubscriptionContract
+#     name = "market_subscription_contract"
 
 
 ###########################################################
@@ -104,4 +104,4 @@ class SubscriptionContractDocumentCollection(ContractDocumentCollection):
 
 
 mongodb.register(SubscriptionClauseDocumentCollection())
-mongodb.register(SubscriptionContractDocumentCollection())
+# mongodb.register(SubscriptionContractDocumentCollection())
