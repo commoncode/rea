@@ -3,9 +3,17 @@ from django.db import models
 from django_xworkflows import models as xwf_models
 from django.utils.translation import ugettext_lazy as _
 
-from rea.models.contracts import Contract, Clause
+from rea.models.contracts import (
+    Contract, Clause, ContractDocumentCollection, ClauseDocumentCollection
+)
 from rea.market.models.agents import Customer, Enterprise
 from rea.market.rules import DateAtLeastRule
+from rea.mongo import mongodb
+
+
+###########################################################
+#  Workflows                                              #
+###########################################################
 
 
 class SubscriptionWorkflow(xwf_models.Workflow):
@@ -26,6 +34,11 @@ class SubscriptionWorkflow(xwf_models.Workflow):
     )
 
     initial_state = 'wait'
+
+
+###########################################################
+#  Django Models                                          #
+###########################################################
 
 
 class SubscriptionClause(Clause):
@@ -62,3 +75,33 @@ class SubscriptionContract(Contract):
     class Meta:
         abstract = True
         app_label = 'market'
+
+
+###########################################################
+#  Denormalize Document Collections                       #
+###########################################################
+
+
+class SubscriptionClauseDocumentCollection(ClauseDocumentCollection):
+    """
+    A denormalized collection of `SubscriptionClause`
+    """
+    model = SubscriptionClause
+    name = "market_subscription_clause"
+
+
+class SubscriptionContractDocumentCollection(ContractDocumentCollection):
+    """
+    A denormalized collection of `SubscriptionContract`
+    """
+    model = SubscriptionContract
+    name = "market_subscription_contract"
+
+
+###########################################################
+#  Mongodb registers                                      #
+###########################################################
+
+
+mongodb.register(SubscriptionClauseDocumentCollection())
+mongodb.register(SubscriptionContractDocumentCollection())
