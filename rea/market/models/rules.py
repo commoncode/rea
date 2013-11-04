@@ -1,7 +1,8 @@
 import logging
 from django.db import models
-from rea.models.contracts import ClauseRule, ClauseRuleDocumentCollection
 from rea.mongo import mongodb
+from rea.models.contracts import ClauseRule
+from rea.collections.contracts import ClauseRuleDocumentCollection
 
 logger = logging.getLogger(__name__)
 

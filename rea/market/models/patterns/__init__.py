@@ -1,2 +1,3 @@
 from .subscription import (
-    SubscriptionWorkflow, SubscriptionClause, SubscriptionContract)
+    SubscriptionWorkflow, SubscriptionClause, SubscriptionContract
+)

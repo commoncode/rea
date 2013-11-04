@@ -1,6 +1,7 @@
 import logging
-from rea.models.resources import Resource, ResourceDocumentCollection
+
 from rea.mongo import mongodb
+from rea.models.resources import Resource
 
 logger = logging.getLogger(__name__)
 
@@ -24,34 +25,3 @@ class Subscription(Resource):
     """
     class Meta:
         app_label = 'market'
-
-
-###########################################################
-#  Denormalize Document Collections                       #
-###########################################################
-
-
-class CurrencyDocumentCollection(ResourceDocumentCollection):
-    """
-    A denormalized collection of `Currency`
-    """
-    model = Currency
-    name = "market_currency"
-
-
-class SubscriptionDocumentCollection(ResourceDocumentCollection):
-    """
-    A denormalized collection of `Subscription`
-    """
-    model = Subscription
-    name = "market_subscription"
-
-
-###########################################################
-#  Mongodb registers                                      #
-###########################################################
-
-
-mongodb.register(CurrencyDocumentCollection())
-mongodb.register(SubscriptionDocumentCollection())
-

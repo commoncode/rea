@@ -1,4 +1,5 @@
-from rea.models.agents import Agent, AgentSerializer
+from rea.models.agents import Agent
+from rea.serializers.agents import AgentSerializer
 from rea.mongo import mongodb, DRFDocumentCollection
 
 
