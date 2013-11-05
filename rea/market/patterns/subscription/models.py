@@ -1,10 +1,10 @@
 import datetime
 from django.db import models
 from rea.models.contracts import Clause
-from rea.market.models.rules import DateAtLeastRule
 from rea.models.contracts import Contract
 from django_xworkflows import models as xwf_models
-from rea.market.models.patterns.subscription import SubscriptionWorkflow
+from rea.market.patterns.subscription.workflows import SubscriptionWorkflow
+from rea.market.models.rules import DateAtLeastRule
 
 
 class SubscriptionClause(Clause):

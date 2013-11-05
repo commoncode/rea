@@ -1,14 +1,8 @@
 import logging
 
-from rea.mongo import mongodb
 from rea.models.resources import Resource
 
 logger = logging.getLogger(__name__)
-
-
-###########################################################
-#  Django Models                                          #
-###########################################################
 
 
 class Currency(Resource):

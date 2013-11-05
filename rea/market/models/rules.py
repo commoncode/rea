@@ -2,14 +2,8 @@ import logging
 from django.db import models
 from rea.mongo import mongodb
 from rea.models.contracts import ClauseRule
-from rea.collections.contracts import ClauseRuleDocumentCollection
 
 logger = logging.getLogger(__name__)
-
-
-###########################################################
-#  Django Models                                          #
-###########################################################
 
 
 class DateAtLeastRule(ClauseRule):
@@ -29,25 +23,3 @@ class DateAtLeastRule(ClauseRule):
 
     class Meta:
         app_label = "market"
-
-
-###########################################################
-#  Denormalize Document Collections                       #
-###########################################################
-
-
-class DateAtLeastRuleDocumentCollection(ClauseRuleDocumentCollection):
-    """
-    A denormalized collection of `DateAtLeastRule`
-    """
-    model = DateAtLeastRule
-    name = "market_date_at_least_rule"
-
-
-###########################################################
-#  Mongodb registers                                      #
-###########################################################
-
-
-mongodb.register(DateAtLeastRuleDocumentCollection())
-

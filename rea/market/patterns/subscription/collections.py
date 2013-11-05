@@ -1,9 +1,10 @@
-from rea.collections.contracts import ClauseDocumentCollection
-from rea.market.models.patterns.subscription import SubscriptionClause
 from rea.mongo import mongodb
-from rea.collections.contracts import ContractDocumentCollection
-from rea.market.models.patterns.subscription import SubscriptionContract
-
+from rea.collections.contracts import (
+    ClauseDocumentCollection, ContractDocumentCollection
+)
+from rea.market.patterns.subscription import (
+    SubscriptionContract, SubscriptionClause
+)
 
 
 class SubscriptionClauseDocumentCollection(ClauseDocumentCollection):

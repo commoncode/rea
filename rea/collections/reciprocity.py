@@ -1,37 +1,35 @@
 from rea.mongo import mongodb, DRFDocumentCollection
+from rea.serializers.reciprocity import (
+    IncrementSerializer, DecrementSerializer, ReciprocitySerializer
+)
 
 
-# class IncrementDocumentCollection(DocumentCollection):
-#     """
-#     A denormalized collection of `Increment`
-#     """
-#     model = Increment
-#     name = "rea_increment"
+class IncrementDocumentCollection(DRFDocumentCollection):
+    """
+    A denormalized collection of `Increment`
+    """
+    serializer_class = IncrementSerializer
+    name = "rea_increment"
 
 
-# class DecrementDocumentCollection(DocumentCollection):
-#     """
-#     A denormalized collection of `Decrement`
-#     """
-#     model = Decrement
-#     name = "rea_decrement"
+class DecrementDocumentCollection(DRFDocumentCollection):
+    """
+    A denormalized collection of `Decrement`
+    """
+    serializer_class = DecrementSerializer
+    name = "rea_decrement"
 
 
-# class ReciprocityDocumentCollection(DocumentCollection):
-#     """
-#     A denormalized collection of `Reciprocity`
-#     """
-#     model = Reciprocity
-#     name = "rea_reciprocity"
+class ReciprocityDocumentCollection(DRFDocumentCollection):
+    """
+    A denormalized collection of `Reciprocity`
+    """
+    serializer_class = ReciprocitySerializer
+    name = "rea_reciprocity"
 
 
-# ###########################################################
-# #  Mongodb registers                                      #
-# ###########################################################
-
-
-# mongodb.register(IncrementDocumentCollection())
-# mongodb.register(DecrementDocumentCollection())
-# mongodb.register(ReciprocityDocumentCollection())
+mongodb.register(IncrementDocumentCollection())
+mongodb.register(DecrementDocumentCollection())
+mongodb.register(ReciprocityDocumentCollection())
 
 

@@ -1,17 +1,13 @@
 from rea.mongo import mongodb, DRFDocumentCollection
+from rea.serializers.resources import ResourceSerializer
 
 
-# class ResourceDocumentCollection(DocumentCollection):
-#     """
-#     A denormalized collection of `Resource`
-#     """
-#     model = Resource
-#     name = "rea_resource"
+class ResourceDocumentCollection(DRFDocumentCollection):
+    """
+    A denormalized collection of `Resource`
+    """
+    serializer_class = ResourceSerializer
+    name = "rea_resource"
 
 
-# ###########################################################
-# #  Mongodb registers                                      #
-# ###########################################################
-
-
-# mongodb.register(ResourceDocumentCollection())
+mongodb.register(ResourceDocumentCollection())

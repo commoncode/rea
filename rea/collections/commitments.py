@@ -29,11 +29,6 @@ class DecrementCommitmentDocumentCollection(DRFDocumentCollection):
     serializer_class = DecrementCommitmentSerializer
 
 
-###########################################################
-#  Mongodb registers                                      #
-###########################################################
-
-
 mongodb.register(CommitmentDocumentCollection())
 mongodb.register(IncrementCommitmentDocumentCollection())
 mongodb.register(DecrementCommitmentDocumentCollection())

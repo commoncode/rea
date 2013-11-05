@@ -1,4 +1,3 @@
-from rest_framework import serializers
 from rea.models.contracts import Contract, Clause, ClauseRule
 from rea.serializers.core import REASerializer
 
