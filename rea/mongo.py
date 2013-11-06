@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 REA_MONGO_DB_NAME = getattr(settings,
     "REA_MONGO_DB_NAME", "rea_denormalized")
 REA_MONGO_CONNECTION_URI = getattr(settings,
-    "REA_MONGO_DB_NAME", "mongodb://localhost")
+    "REA_MONGO_URI", "mongodb://localhost")
 
 
 class REAMongoBackend(MongoBackend):
