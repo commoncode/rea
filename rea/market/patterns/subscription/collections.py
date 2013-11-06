@@ -2,7 +2,7 @@ from rea.mongo import mongodb
 from rea.collections.contracts import (
     ClauseDocumentCollection, ContractDocumentCollection
 )
-from rea.market.patterns.subscription import (
+from rea.market.patterns.subscription.models import (
     SubscriptionContract, SubscriptionClause
 )
 
