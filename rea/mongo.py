@@ -93,5 +93,5 @@ class DRFDocumentCollection(DocumentCollection):
         Use Django Rest Framework to serialize our object
         """
         data = self.serializer_class(obj).data
-        logger.debug(data)
+        logger.debug('\033[94m%s:\033[0m %s' % (model._meta.db_table, data))
         return data
