@@ -17,7 +17,7 @@ class SubscriptionDocumentCollection(ResourceDocumentCollection):
     A denormalized collection of `Subscription`
     """
     serializer_class = SubscriptionSerializer
-    name = "market_currency"
+    name = "market_subscription"
 
 
 mongodb.register(CurrencyDocumentCollection())

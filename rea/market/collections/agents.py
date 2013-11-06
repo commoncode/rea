@@ -22,4 +22,3 @@ class EnterpriseDocumentCollection(DRFDocumentCollection):
 
 mongodb.register(CustomerDocumentCollection())
 mongodb.register(EnterpriseDocumentCollection())
-import ipdb; ipdb.set_trace();
