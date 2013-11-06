@@ -36,6 +36,7 @@ class REAMongoBackend(MongoBackend):
         mongoID = self.get_mongo_id(collection, doc_id)
         col = getattr(self.db, collection.name)
         # Replace any existing document
+        doc['_id'] = mongoID
         col.update({'_id': mongoID}, doc, upsert=True)
 
     def changed(self, collection, doc_id, doc):
