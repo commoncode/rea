@@ -9,7 +9,7 @@ class IncrementDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Increment`
     """
     serializer_class = IncrementSerializer
-    name = "rea_increment"
+    name = "increment"
 
 
 class DecrementDocumentCollection(DRFDocumentCollection):
@@ -17,7 +17,7 @@ class DecrementDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Decrement`
     """
     serializer_class = DecrementSerializer
-    name = "rea_decrement"
+    name = "decrement"
 
 
 class ReciprocityDocumentCollection(DRFDocumentCollection):
@@ -25,7 +25,7 @@ class ReciprocityDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Reciprocity`
     """
     serializer_class = ReciprocitySerializer
-    name = "rea_reciprocity"
+    name = "reciprocity"
 
 
 mongodb.register(IncrementDocumentCollection())

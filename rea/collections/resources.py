@@ -7,7 +7,7 @@ class ResourceDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Resource`
     """
     serializer_class = ResourceSerializer
-    name = "rea_resource"
+    name = "resource"
 
 
 mongodb.register(ResourceDocumentCollection())

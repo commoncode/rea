@@ -8,7 +8,7 @@ class EventDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Event`
     """
-    name = "rea_event"
+    name = "event"
     serializer_class = EventSerializer
 
 
@@ -16,7 +16,7 @@ class IncrementEventDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `IncrementEvent`
     """
-    name = "rea_increment_event"
+    name = "increment_event"
     serializer_class = IncrementEventSerializer
 
 
@@ -24,7 +24,7 @@ class DecrementEventDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `DecrementEvent`
     """
-    name = "rea_decrement_event"
+    name = "decrement_event"
     serializer_class = DecrementEventSerializer
 
 

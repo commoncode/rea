@@ -7,7 +7,7 @@ class AgentDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Agent`
     """
     serializer_class = AgentSerializer
-    name = "rea_agent"
+    name = "agent"
 
 
 mongodb.register(AgentDocumentCollection())

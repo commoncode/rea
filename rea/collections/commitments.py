@@ -9,7 +9,7 @@ class CommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Commitment`
     """
-    name = "rea_commitment"
+    name = "commitment"
     serializer_class = CommitmentSerializer
 
 
@@ -17,7 +17,7 @@ class IncrementCommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `IncrementCommitment`
     """
-    name = "rea_increment_commitment"
+    name = "increment_commitment"
     serializer_class = IncrementCommitmentSerializer
 
 
@@ -25,7 +25,7 @@ class DecrementCommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `DecrementCommitment`
     """
-    name = "rea_decrement_commitment"
+    name = "decrement_commitment"
     serializer_class = DecrementCommitmentSerializer
 
 

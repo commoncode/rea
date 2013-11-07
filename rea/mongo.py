@@ -25,31 +25,83 @@ class REAMongoBackend(MongoBackend):
         self.connection = pymongo.Connection(self.connection_uri, safe=True)
         self.db = getattr(self.connection, self.db_name)
 
+    def get_parent_table_name(self, collection, table_name):
+        return "%s__%s" % (
+            collection.parent_collection.name,
+            table_name
+        )
+
     def deleted(self, collection, doc_id):
-        logging.debug('deleted: %s %s', collection.name, doc_id)
         mongoID = self.get_mongo_id(collection, doc_id)
-        col = getattr(self.db, collection.name)
-        col.remove({'_id': mongoID})
+        while True:
+            has_parent = False
+            table_name = collection.name
+            if collection.parent_collection:
+                table_name = self.get_parent_table_name(
+                    collection, table_name
+                )
+                has_parent = True
+
+            logging.debug('deleted: %s %s', collection.name, doc_id)
+            col = getattr(self.db, collection.name)
+            col.remove({'_id': mongoID})
+
+            if not has_parent:
+                break
+            collection = collection.parent_collection
 
     def added(self, collection, doc_id, doc):
-        logging.debug('added: %s %s', collection.name, doc_id)
+        # We can share the same ID across
         mongoID = self.get_mongo_id(collection, doc_id)
-        col = getattr(self.db, collection.name)
-        # Replace any existing document
-        doc['_id'] = mongoID
-        col.update({'_id': mongoID}, doc, upsert=True)
+        is_parent = True
+        parent_table_name = collection.name
+        while True:
+            has_parent = False
+            table_name = collection.name
+            if collection.parent_collection:
+                table_name = self.get_parent_table_name(
+                    collection, table_name
+                )
+                has_parent = True
+
+            logging.debug('added: %s %s', table_name, doc_id)
+            col = getattr(self.db, table_name)
+            # Replace any existing document
+            doc['_id'] = mongoID
+            if not is_parent:
+                doc['_parent_table'] = parent_table_name
+            col.update({'_id': mongoID}, doc, upsert=True)
+
+            if not has_parent:
+                break
+            collection = collection.parent_collection
+            is_parent = False
 
     def changed(self, collection, doc_id, doc):
-        logging.debug('changed: %s %s', collection.name, doc_id)
         mongoID = self.get_mongo_id(collection, doc_id)
-        col = getattr(self.db, collection.name)
-        # We are not allowed to update _id
-        if '_id' in doc:
-            del doc['_id']
-        # Only update the documents fields. We keep any other fields
-        # added by other code intact, as long as they are set on the
-        # document root.
-        col.update({'_id': mongoID}, {'$set': doc}, upsert=True)
+
+        while True:
+            has_parent = False
+            table_name = collection.name
+            if collection.parent_collection:
+                table_name = self.get_parent_table_name(
+                    collection, table_name
+                )
+                has_parent = True
+
+            logging.debug('changed: %s %s', collection.name, doc_id)
+            col = getattr(self.db, collection.name)
+            # We are not allowed to update _id
+            if '_id' in doc:
+                del doc['_id']
+            # Only update the documents fields. We keep any other fields
+            # added by other code intact, as long as they are set on the
+            # document root.
+            col.update({'_id': mongoID}, {'$set': doc}, upsert=True)
+
+            if not has_parent:
+                break
+            collection = collection.parent_collection
 
     def get_doc(self, collection, doc_id):
         mongoID = self.get_mongo_id(collection, doc_id)
@@ -73,6 +125,9 @@ class DRFDocumentCollection(DocumentCollection):
     TODO: How to deal with stale foreign key data being cached in mongo?
     """
     serializer_class = None
+
+    # Parent DRFDocumentCollection (for saving child objects)
+    parent_collection = None
 
     def __init__(self):
         if self.serializer_class is None:

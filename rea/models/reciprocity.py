@@ -3,14 +3,12 @@ from rea.models.core import REAModel
 
 
 class Increment(REAModel):
-    pass
 
     class Meta:
         app_label = "rea"
 
 
 class Decrement(REAModel):
-    pass
 
     class Meta:
         app_label = "rea"
