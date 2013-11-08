@@ -8,5 +8,5 @@ class ResourceSerializer(REASerializer):
     """
     class Meta:
         model = Resource
-        fields = ( "id", "title" )
+        fields = ( "id", "title", "slug" )
 

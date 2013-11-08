@@ -1,16 +1,16 @@
 from rea.models.events import Event, IncrementEvent, DecrementEvent
 from rea.serializers.core import REASerializer
-from rea.serializers.commitments import CommitmentSerializer
 from rea.serializers.agents import AgentSerializer
 from rea.serializers.resources import ResourceSerializer
 from rea.serializers.contracts import ContractSerializer
+# from rea.serializers.commitments import CommitmentSerializer
 
 
 class EventSerializer(REASerializer):
     """
     Serializer for the `Event` model
     """
-    related_commitment = CommitmentSerializer()
+    # related_commitment = CommitmentSerializer()
 
     class Meta:
         model = Event
