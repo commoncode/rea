@@ -90,7 +90,7 @@ class REAMongoBackend(MongoBackend):
                 has_parent = True
 
             logging.debug('changed: %s %s', collection.name, doc_id)
-            col = getattr(self.db, collection.name)
+            col = getattr(self.db, table_name)
             # We are not allowed to update _id
             if '_id' in doc:
                 del doc['_id']
