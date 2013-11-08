@@ -16,12 +16,8 @@ class CommitmentSerializer(REASerializer):
     class Meta:
         model = Commitment
         fields = (
-            "id", "related_commitment", "occurance", "occured_at"
+            "id", "related_commitment", "occured_at"
         )
-
-    def __init__(self, *args, **kwargs):
-        super(CommitmentSerializer, self).__init__(*args, **kwargs)
-
 
 class IncrementCommitmentSerializer(REASerializer):
     """
@@ -30,7 +26,6 @@ class IncrementCommitmentSerializer(REASerializer):
     commitment = CommitmentSerializer()
     resource = ResourceSerializer()
     agent = AgentSerializer()
-    commitment = CommitmentSerializer()
 
     class Meta:
         model = IncrementCommitment
@@ -46,7 +41,6 @@ class DecrementCommitmentSerializer(REASerializer):
     commitment = CommitmentSerializer()
     agent = AgentSerializer()
     resource = ResourceSerializer()
-    commitment = CommitmentSerializer()
 
     class Meta:
         model = DecrementCommitment

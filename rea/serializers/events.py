@@ -2,6 +2,8 @@ from rea.models.events import Event, IncrementEvent, DecrementEvent
 from rea.serializers.core import REASerializer
 from rea.serializers.commitments import CommitmentSerializer
 from rea.serializers.agents import AgentSerializer
+from rea.serializers.resources import ResourceSerializer
+from rea.serializers.contracts import ContractSerializer
 
 
 class EventSerializer(REASerializer):
@@ -13,7 +15,7 @@ class EventSerializer(REASerializer):
     class Meta:
         model = Event
         fields = (
-            "id", "related_commitment", "occurance", "occured_at"
+            "id", "related_commitment", "occured_at"
         )
 
 
@@ -21,8 +23,9 @@ class IncrementEventSerializer(REASerializer):
     """
     Serializer for the `IncrementEvent` model
     """
+    contract = ContractSerializer()
     agent = AgentSerializer()
-    # resource = ResourceSerializer()
+    resource = ResourceSerializer()
     event = EventSerializer()
 
     class Meta:
@@ -36,8 +39,9 @@ class DecrementEventSerializer(REASerializer):
     """
     Serializer for the `DecrementEvent` model
     """
+    contract = ContractSerializer()
     agent = AgentSerializer()
-    # resource = ResourceSerializer()
+    resource = ResourceSerializer()
     event = EventSerializer()
 
     class Meta:

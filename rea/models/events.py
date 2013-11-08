@@ -15,11 +15,11 @@ class Event(REAModel):
         null=True,
         related_name='%(app_label)s_%(class)s_commitment')
 
-    occurance = models.DateTimeField(
+    occured_at = models.DateTimeField(
         blank=True,
-        null=True)
-
-    occured_at = models.TextField()
+        null=True,
+        auto_now_add=True
+        )
 
     class Meta:
         app_label = "rea"
@@ -37,7 +37,7 @@ class EventLineMixin(REAModel):
         abstract = True
 
 
-class IncrementEvent(EventLineMixin, Increment):
+class IncrementEvent(EventLineMixin):
     """
     """
     event = models.ForeignKey(Event)
@@ -46,7 +46,7 @@ class IncrementEvent(EventLineMixin, Increment):
         app_label = "rea"
 
 
-class DecrementEvent(EventLineMixin, Decrement):
+class DecrementEvent(EventLineMixin):
     """
     """
     event = models.ForeignKey(Event)
