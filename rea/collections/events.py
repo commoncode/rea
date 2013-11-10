@@ -1,6 +1,7 @@
 from rea.mongo import mongodb, DRFDocumentCollection
 from rea.serializers.events import (
-    EventSerializer, IncrementEventSerializer, DecrementEventSerializer
+    EventSerializer, IncrementEventSerializer, DecrementEventSerializer,
+    ExchangeEventSerializer
 )
 
 
@@ -30,6 +31,16 @@ class DecrementEventDocumentCollection(DRFDocumentCollection):
     serializer_class = DecrementEventSerializer
 
 
+class ExchangeEventDocumentCollection(DRFDocumentCollection):
+    """
+    A denormalized collection of `ExchangeEvent`
+    """
+    name = "exchange_event"
+    serializer_class = ExchangeEventSerializer
+
+
 mongodb.register(EventDocumentCollection())
 mongodb.register(IncrementEventDocumentCollection())
 mongodb.register(DecrementEventDocumentCollection())
+mongodb.register(ExchangeEventDocumentCollection())
+

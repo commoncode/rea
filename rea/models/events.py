@@ -53,3 +53,15 @@ class DecrementEvent(EventLineMixin):
 
     class Meta:
         app_label = "rea"
+
+
+class ExchangeEvent(REAModel):
+    """
+    An Event exchange (A convenient model to dictate both sides of an exchange)
+    """
+    increment = models.ForeignKey(IncrementEvent)
+    decrement = models.ForeignKey(DecrementEvent)
+
+    class Meta:
+        app_label = "rea"
+

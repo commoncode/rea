@@ -3,6 +3,7 @@ from rea.serializers.core import REASerializer
 from rea.serializers.agents import AgentSerializer
 from rea.serializers.resources import ResourceSerializer
 from rea.serializers.contracts import ContractSerializer
+from rea.models.events import ExchangeEvent
 # from rea.serializers.commitments import CommitmentSerializer
 
 
@@ -48,4 +49,18 @@ class DecrementEventSerializer(REASerializer):
         model = DecrementEvent
         fields = (
             "id", "agent", "resource", "quantity", "event"
+        )
+
+
+class ExchangeEventSerializer(REASerializer):
+    """
+    Serializer for the `DecrementEvent` model
+    """
+    increment = IncrementEventSerializer()
+    decrement = DecrementEventSerializer()
+
+    class Meta:
+        model = ExchangeEvent
+        fields = (
+            "id", "increment", "decrement"
         )
