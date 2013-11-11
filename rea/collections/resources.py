@@ -1,12 +1,13 @@
 from rea.mongo import mongodb, DRFDocumentCollection
-from rea.serializers.resources import ResourceSerializer
+from rea.models.resources import Resource
 
 
 class ResourceDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Resource`
     """
-    serializer_class = ResourceSerializer
+    serializer_class = "rea.serializers.resources.ResourceSerializer"
+    model = Resource
     name = "resource"
 
 

@@ -1,47 +1,45 @@
 from django.db import models
-from rea.models.events import Event, EventLineMixin
-from rea.models.reciprocity import Increment, Decrement
+from rea.models.core import REAModel
+from rea.models import LineMixin
 
 
-class Commitment(Event):
+class CommitmentLineMixin(LineMixin):
     """
     """
-    contract = models.ForeignKey('rea.Contract')
-
-    class Meta:
-        app_label = "rea"
-
-    def is_fulfilled(self):
-        """
-        Query the Ledger or Event table for an Event with Event.commitment == self
-        from this we infer that the commitment event has been fulfilled by a
-        transactional event
-        """
-        try:
-            Event.objects.get(commitment=self)
-        except Event.DoesNotExist:
-            return False
-        return True
-
-
-class CommitmentLineMixin(EventLineMixin):
-    """
-    """
-    commitment = models.ForeignKey('Commitment')
-
     class Meta:
         abstract = True
 
 
-class IncrementCommitment(CommitmentLineMixin, Increment):
+class IncrementCommitment(CommitmentLineMixin):
     """
     """
     class Meta:
         app_label = "rea"
 
 
-class DecrementCommitment(CommitmentLineMixin, Decrement):
+class DecrementCommitment(CommitmentLineMixin):
     """
     """
+    class Meta:
+        app_label = "rea"
+
+
+class Commitment(REAModel):
+    """
+    Essentially our reciprocity
+    """
+    contract = models.ForeignKey('rea.Contract')
+
+    occured_at = models.DateTimeField(
+        blank=True,
+        null=True,
+        auto_now_add=True
+    )
+
+    increment = models.ForeignKey(IncrementCommitment,
+        related_name="%(app_label)s_%(class)s_increment_commitments")
+    decrement = models.ForeignKey(DecrementCommitment,
+        related_name="%(app_label)s_%(class)s_decrement_commitments")
+
     class Meta:
         app_label = "rea"

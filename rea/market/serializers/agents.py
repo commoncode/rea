@@ -8,6 +8,9 @@ class CustomerSerializer(AgentSerializer):
     """
     class Meta(AgentSerializer.Meta):
         model = Customer
+        fields = AgentSerializer.Meta.fields + (
+            'date_joined',
+        )
 
 
 class EnterpriseSerializer(AgentSerializer):

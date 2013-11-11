@@ -1,5 +1,6 @@
 import logging
 import pymongo
+import importlib
 
 from django.conf import settings
 from denormalize.backend.mongodb import MongoBackend
@@ -148,6 +149,14 @@ class DRFDocumentCollection(DocumentCollection):
         """
         Use Django Rest Framework to serialize our object
         """
+        if isinstance(self.serializer_class, str):
+            # If a string, import and get the class
+            mods = self.serializer_class.split('.')
+            class_str = mods[-1]
+            path_str = '.'.join(mods[:-1])
+            module = importlib.import_module(path_str)
+            self.serializer_class = getattr(module, class_str)
+
         data = self.serializer_class(obj).data
         logger.debug('\033[94m%s:\033[0m %s' % (model._meta.db_table, data))
         return data

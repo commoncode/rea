@@ -1,8 +1,5 @@
 from rea.mongo import mongodb, DRFDocumentCollection
-from rea.serializers.events import (
-    EventSerializer, IncrementEventSerializer, DecrementEventSerializer,
-    ExchangeEventSerializer
-)
+from rea.models.events import Event, DecrementLine, IncrementLine
 
 
 class EventDocumentCollection(DRFDocumentCollection):
@@ -10,37 +7,29 @@ class EventDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Event`
     """
     name = "event"
-    serializer_class = EventSerializer
+    model = Event
+    serializer_class = "rea.serializers.events.EventSerializer"
 
 
-class IncrementEventDocumentCollection(DRFDocumentCollection):
+class IncrementLineDocumentCollection(DRFDocumentCollection):
     """
-    A denormalized collection of `IncrementEvent`
+    A denormalized collection of `IncrementLine`
     """
-    parent_collection = EventDocumentCollection
-    name = "increment_event"
-    serializer_class = IncrementEventSerializer
+    name = "increment_line"
+    model = IncrementLine
+    serializer_class = "rea.serializers.events.IncrementLineSerializer"
 
 
-class DecrementEventDocumentCollection(DRFDocumentCollection):
+class DecrementLineDocumentCollection(DRFDocumentCollection):
     """
-    A denormalized collection of `DecrementEvent`
+    A denormalized collection of `DecrementLine`
     """
-    parent_collection = EventDocumentCollection
-    name = "decrement_event"
-    serializer_class = DecrementEventSerializer
-
-
-class ExchangeEventDocumentCollection(DRFDocumentCollection):
-    """
-    A denormalized collection of `ExchangeEvent`
-    """
-    name = "exchange_event"
-    serializer_class = ExchangeEventSerializer
+    name = "decrement_line"
+    model = DecrementLine
+    serializer_class = "rea.serializers.events.DecrementLineSerializer"
 
 
 mongodb.register(EventDocumentCollection())
-mongodb.register(IncrementEventDocumentCollection())
-mongodb.register(DecrementEventDocumentCollection())
-mongodb.register(ExchangeEventDocumentCollection())
+mongodb.register(IncrementLineDocumentCollection())
+mongodb.register(DecrementLineDocumentCollection())
 

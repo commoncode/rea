@@ -1,8 +1,7 @@
 from rea.mongo import mongodb, DRFDocumentCollection
-from rea.market.serializers.agents import (
-    CustomerSerializer, EnterpriseSerializer
-)
 from rea.collections.agents import AgentDocumentCollection
+from core.models import Customer
+from rea.market.models.agents import Enterprise
 
 
 class CustomerDocumentCollection(DRFDocumentCollection):
@@ -10,7 +9,8 @@ class CustomerDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Customer`
     """
     parent_collection = AgentDocumentCollection
-    serializer_class = CustomerSerializer
+    model = Customer
+    serializer_class = "rea.market.serializers.agents.CustomerSerializer"
     name = "market_customer"
 
 
@@ -19,7 +19,8 @@ class EnterpriseDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Enterprise`
     """
     parent_collection = AgentDocumentCollection
-    serializer_class = EnterpriseSerializer
+    model = Enterprise
+    serializer_class = "rea.market.serializers.agents.EnterpriseSerializer"
     name = "market_enterprise"
 
 

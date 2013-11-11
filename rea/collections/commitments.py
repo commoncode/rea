@@ -1,39 +1,36 @@
 from rea.mongo import mongodb, DRFDocumentCollection
-from rea.serializers.commitments import (
-    CommitmentSerializer, IncrementCommitmentSerializer,
-    DecrementCommitmentSerializer
-)
-from rea.collections.reciprocity import (
-    IncrementDocumentCollection, DecrementDocumentCollection
-)
 from rea.collections.events import EventDocumentCollection
-
+from rea.models.commitments import (
+    Commitment, IncrementCommitment, DecrementCommitment
+)
 
 class CommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `Commitment`
     """
-    parent_collection = EventDocumentCollection
     name = "commitment"
-    serializer_class = CommitmentSerializer
+    model = Commitment
+    serializer_class = "rea.serializers.commitments.CommitmentSerializer"
 
 
 class IncrementCommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `IncrementCommitment`
     """
-    parent_collection = IncrementDocumentCollection
     name = "increment_commitment"
-    serializer_class = IncrementCommitmentSerializer
+    model = IncrementCommitment
+    serializer_class = (
+        "rea.serializers.commitments.IncrementCommitmentSerializer")
 
 
 class DecrementCommitmentDocumentCollection(DRFDocumentCollection):
     """
     A denormalized collection of `DecrementCommitment`
     """
-    parent_collection = DecrementDocumentCollection
     name = "decrement_commitment"
-    serializer_class = DecrementCommitmentSerializer
+    model = DecrementCommitment
+    serializer_class = (
+        "rea.serializers.commitments.DecrementCommitmentSerializer")
 
 
 mongodb.register(CommitmentDocumentCollection())

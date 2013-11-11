@@ -1,8 +1,5 @@
 from rea.mongo import mongodb, DRFDocumentCollection
-from rea.serializers.contracts import (
-    ContractSerializer, ClauseSerializer, ClauseRuleSerializer,
-    ContractClauseSerializer
-)
+from rea.models.contracts import Contract, Clause, ClauseRule, ContractClause
 
 
 class ContractDocumentCollection(DRFDocumentCollection):
@@ -10,7 +7,8 @@ class ContractDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Contract`
     """
     name = "contract"
-    serializer_class = ContractSerializer
+    model = Contract
+    serializer_class = "rea.serializers.contracts.ContractSerializer"
 
 
 class ClauseDocumentCollection(DRFDocumentCollection):
@@ -18,7 +16,8 @@ class ClauseDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Clause`
     """
     name = "clause"
-    serializer_class = ClauseSerializer
+    model = Clause
+    serializer_class = "rea.serializers.contracts.ClauseSerializer"
 
 
 class ClauseRuleDocumentCollection(DRFDocumentCollection):
@@ -26,7 +25,8 @@ class ClauseRuleDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `ClauseRule`
     """
     name = "clause_rule"
-    serializer_class = ClauseRuleSerializer
+    model = ClauseRule
+    serializer_class = "rea.serializers.contracts.ClauseRuleSerializer"
 
 
 class ContractClauseDocumentCollection(DRFDocumentCollection):
@@ -34,7 +34,8 @@ class ContractClauseDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `ContractClause`
     """
     name = "contract_clause"
-    serializer_class = ContractClauseSerializer
+    model = ContractClause
+    serializer_class = "rea.serializers.contracts.ContractClauseSerializer"
 
 
 mongodb.register(ContractDocumentCollection())

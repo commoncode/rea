@@ -1,7 +1,6 @@
-from rea.market.serializers.resources import CurrencySerializer
 from rea.mongo import mongodb, DRFDocumentCollection
 from rea.collections.resources import ResourceDocumentCollection
-from rea.market.serializers.resources import SubscriptionSerializer
+from rea.market.models.resources import Currency, Subscription
 
 
 class CurrencyDocumentCollection(DRFDocumentCollection):
@@ -9,7 +8,8 @@ class CurrencyDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Currency`
     """
     parent_collection = ResourceDocumentCollection
-    serializer_class = CurrencySerializer
+    model = Currency
+    serializer_class = "rea.market.serializers.resources.CurrencySerializer"
     name = "currency"
 
 
@@ -18,7 +18,8 @@ class SubscriptionDocumentCollection(DRFDocumentCollection):
     A denormalized collection of `Subscription`
     """
     parent_collection = ResourceDocumentCollection
-    serializer_class = SubscriptionSerializer
+    model = Subscription
+    serializer_class = "rea.market.serializers.resources.SubscriptionSerializer"
     name = "subscription"
 
 

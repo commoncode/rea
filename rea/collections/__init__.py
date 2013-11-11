@@ -8,7 +8,7 @@ from .commitments import (
     DecrementCommitmentDocumentCollection
 )
 from .events import (
-    EventDocumentCollection, IncrementEventDocumentCollection,
-    DecrementEventDocumentCollection
+    EventDocumentCollection, IncrementLineDocumentCollection,
+    DecrementLineDocumentCollection
 )
 from .resources import ResourceDocumentCollection
