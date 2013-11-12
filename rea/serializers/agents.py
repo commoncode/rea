@@ -9,5 +9,5 @@ class AgentSerializer(REASerializer):
     class Meta:
         model = Agent
         fields = (
-            "id", "title", "short_title", "slug"
+            "id", "title", "short_title"
         )
