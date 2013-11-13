@@ -11,7 +11,7 @@ class LineMixin(REAModel):
         related_name='%(app_label)s_%(class)s_recieving_agents')
 
     resource = models.ForeignKey('Resource')
-    quantity = models.PositiveIntegerField()
+    quantity = models.FloatField()
 
     class Meta:
         app_label = "rea"
