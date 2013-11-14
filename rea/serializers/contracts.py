@@ -1,15 +1,31 @@
-from rea.models.contracts import Contract, Clause, ClauseRule
+from rea.models.contracts import Contract, Clause, ClauseRule, Order
 from rea.serializers.core import REASerializer
+from rest_framework import serializers
+
+
+class OrderSerializer(REASerializer):
+    """
+    Serializer for the `Order` model
+    """
+    agent = serializers.PrimaryKeyRelatedField()
+
+    class Meta:
+        model = Order
+        fields = (
+            "id", "created_at", "created_by", "agent"
+        )
 
 
 class ContractSerializer(REASerializer):
     """
     Serializer for the `ContractContract` model
     """
+    order = serializers.PrimaryKeyRelatedField()
+
     class Meta:
         model = Contract
         fields = (
-            "id", "title", "short_title"
+            "id", "title", "short_title", "order"
         )
 
 
