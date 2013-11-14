@@ -4,6 +4,7 @@ from rea.models.commitments import (
 from rea.serializers.core import REASerializer
 from rea.serializers.resources import ResourceSerializer
 from rea.serializers.agents import AgentSerializer
+from rea.serializers.contracts import ContractSerializer
 # from rea.serializers.contracts import ContractSerializer
 
 
@@ -43,8 +44,10 @@ class CommitmentSerializer(REASerializer):
     """
     Serializer for the `Commitment` model
     """
+    contract = ContractSerializer()
+
     class Meta:
         model = Commitment
         fields = (
-            "id", "occured_at"
+            "id", "occured_at", "contract"
         )
