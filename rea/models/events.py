@@ -1,6 +1,5 @@
 from django.db import models
 
-from rea.models.reciprocity import Increment, Decrement
 from rea.models.core import REAModel
 from rea.models import LineMixin
 
