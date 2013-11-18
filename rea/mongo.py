@@ -144,15 +144,21 @@ class REAMongoBackend(MongoBackend):
             if len(_collection):
                 col = _collection[0]
 
+                # Loop through any parent collections and apply changes
+                # to polymorphic tables and reverse lookups
                 while True:
                     if col is None:
                         break
 
                     document_ids = reverse_lookup.values_list('id', flat=True)
                     for d_id in document_ids:
+                        # Update each document that has a link to the current
+                        # model
                         self._call_changed(col, d_id)
 
                     if col.parent_collection:
+                        # Get the parent collection from the registered
+                        # collections list and loop again
                         _sub_collection = [
                             x for x in self.collections.values()
                             if x.model == col.parent_collection.model
