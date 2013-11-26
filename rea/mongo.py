@@ -2,6 +2,8 @@ import logging
 import pymongo
 import importlib
 
+from bson.objectid import ObjectId
+
 from django.conf import settings
 from django.db.models.fields.related import ForeignRelatedObjectsDescriptor
 from denormalize.backend.mongodb import MongoBackend
@@ -11,6 +13,8 @@ from denormalize.models import DocumentCollection
 logger = logging.getLogger(__name__)
 
 
+REA_MODEL_DATA_COLLECTION_NAME = getattr(settings,
+    "REA_MODEL_DATA_COLLECTION_NAME", "model_data")
 REA_MONGO_DB_NAME = getattr(settings,
     "REA_MONGO_DB_NAME", "rea_denormalized")
 REA_MONGO_CONNECTION_URI = getattr(settings,
@@ -34,6 +38,10 @@ class REAMongoBackend(MongoBackend):
     def connect(self):
         self.connection = pymongo.Connection(self.connection_uri, safe=True)
         self.db = getattr(self.connection, self.db_name)
+
+        # Remove all model data from mongo, to be replaced in _setup_listeners
+        self.db[REA_MODEL_DATA_COLLECTION_NAME].remove()
+
 
     def get_parent_table_name(self, collection, table_name):
         return "%s__%s" % (
@@ -116,6 +124,8 @@ class REAMongoBackend(MongoBackend):
                 break
             current_collection = current_collection.parent_collection
 
+        # WARNING: Code is evil (in this state)
+        # ---------------------------------------------------
         serializer_class = collection.serializer_class
         model = serializer_class.Meta.model
         model_instance = model.objects.get(id=doc_id)
@@ -146,10 +156,7 @@ class REAMongoBackend(MongoBackend):
 
                 # Loop through any parent collections and apply changes
                 # to polymorphic tables and reverse lookups
-                while True:
-                    if col is None:
-                        break
-
+                while col is not None:
                     document_ids = reverse_lookup.values_list('id', flat=True)
                     for d_id in document_ids:
                         # Update each document that has a link to the current
@@ -173,6 +180,46 @@ class REAMongoBackend(MongoBackend):
         mongoID = self.get_mongo_id(collection, doc_id)
         col = getattr(self.db, collection.name)
         return col.find_one({'_id': mongoID})
+
+
+    def _setup_listeners(self, collection):
+        """
+        Add a model type dictionary for our models
+        """
+        super(REAMongoBackend, self)._setup_listeners(collection)
+
+        serializer_class = collection.serializer_class
+        if isinstance(serializer_class, str):
+            serializer_class = import_from_string(serializer_class)
+
+        serialized_fields = [
+            x for x in collection.model._meta.fields
+            if x.name in serializer_class.Meta.fields
+
+        ]
+
+        names = [x.name for x in serialized_fields]
+        types = [x.get_internal_type() for x in serialized_fields]
+        data = dict(zip(names, types))
+        data['_id'] = str(ObjectId())
+
+        current_collection = collection
+        table_name = current_collection.name
+        # Currently a TOTAL copy of a method above. Refactor this
+        while True:
+            has_parent = False
+            if current_collection.parent_collection:
+                table_name = self.get_parent_table_name(
+                    current_collection, table_name
+                )
+                has_parent = True
+
+            if not has_parent:
+                break
+            current_collection = current_collection.parent_collection
+
+        data['_collection'] = table_name
+        self.db[REA_MODEL_DATA_COLLECTION_NAME].insert(data)
 
 
 mongodb = REAMongoBackend(
