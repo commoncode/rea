@@ -22,5 +22,7 @@ setup( name='rea',
         'django-polymorphic',
         'pymongo',
         'django_xworkflows',
+        'djangorestframework',
+        'django-denormalize',
     ]
 )
