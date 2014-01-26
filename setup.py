@@ -21,5 +21,6 @@ setup( name='rea',
         'Django>=1.4',
         'django-polymorphic',
         'pymongo',
+        'django_xworkflows',
     ]
 )
