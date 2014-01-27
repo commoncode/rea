@@ -23,6 +23,9 @@ setup( name='rea',
         'pymongo',
         'django_xworkflows',
         'djangorestframework',
-        'django-denormalize',
-    ]
+        'django-denormalize==0.2.1',
+    ],
+    dependency_links = [
+        'hg+ssh://hg@bitbucket.org/darylantony/django-denormalize#egg=django-denormalize-0.2.1',
+    ],
 )
