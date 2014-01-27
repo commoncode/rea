@@ -18,14 +18,12 @@ setup( name='rea',
         'Programming Language :: Python',
     ],
     install_requires = [
-        # 'Django>=1.4',
-        # 'django-polymorphic',
-        # 'pymongo',
-        # 'django_xworkflows',
-        # 'djangorestframework',
-        'django-denormalize-build-fix==0.2.1',
-    ],
-    dependency_links = [
-        'hg+ssh://hg@bitbucket.org/darylantony/django-denormalize-build-fix#egg=django-denormalize-build-fix-0.2.1',
-    ],
+        'Django>=1.4',
+        'django-polymorphic',
+        'pymongo',
+        'django_xworkflows',
+        'djangorestframework',
+        # 'django-denormalize', ## this is currently busted on pypi.  workarounds under pip install -e seem busted too.
+        # for now... install via requirements.txt
+    ]
 )
