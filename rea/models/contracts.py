@@ -9,23 +9,10 @@ from rea.models.core import REAModel
 logger = logging.getLogger(__name__)
 
 
-class Order(REAModel, CreatedMixin, ModifiedMixin):
-    """
-    TODO: Move this to market?
-    """
-    # True if all contracts are accepted
-    agent = models.ForeignKey("rea.Agent")
-
-    class Meta:
-        app_label = "rea"
-
-
 class Contract(xwf_models.WorkflowEnabled, REAModel, TitleMixin):
     """
     """
     __metaclass__ = classmaker()
-
-    order = models.ForeignKey(Order)
 
     class Meta:
         app_label = 'rea'
