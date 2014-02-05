@@ -23,7 +23,7 @@ setup( name='rea',
         'pymongo',
         'django_xworkflows',
         'djangorestframework',
-        # 'django-denormalize', ## this is currently busted on pypi.  workarounds under pip install -e seem busted too.
+        'django-denormalize', ## this is currently busted on pypi.  workarounds under pip install -e seem busted too.
         # for now... install via requirements.txt
     ]
 )
