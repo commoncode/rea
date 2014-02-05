@@ -1,6 +1,6 @@
 from django.db import models
 
-from .models.core import REAModel
+from .core import REAModel
 
 
 class LineMixin(REAModel):
