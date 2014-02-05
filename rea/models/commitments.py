@@ -1,6 +1,7 @@
 from django.db import models
-from rea.models.core import REAModel
-from rea.models import LineMixin
+
+from .models.core import REAModel
+from .models import LineMixin
 
 
 class CommitmentLineMixin(LineMixin):

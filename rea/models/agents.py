@@ -1,5 +1,6 @@
 from entropy.base import SlugMixin, TitleMixin
-from rea.models.core import REAModel
+
+from .models.core import REAModel
 
 
 class Agent(REAModel, TitleMixin):

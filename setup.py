@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup( name='rea',
-    version = '0.0.1',
+    version = '0.0.2',
     description = 'Resources, Events & Agents marketplace models',
     author = 'Daryl Antony',
     author_email = 'daryl@commoncode.com.au',
@@ -20,10 +20,5 @@ setup( name='rea',
     install_requires = [
         'Django>=1.4',
         'django-polymorphic',
-        'pymongo',
-        'django_xworkflows',
-        'djangorestframework',
-        'django-denormalize', ## this is currently busted on pypi.  workarounds under pip install -e seem busted too.
-        # for now... install via requirements.txt
     ]
 )

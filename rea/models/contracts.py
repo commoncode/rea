@@ -1,10 +1,13 @@
 import logging
+
 from django.db import models
 from django_xworkflows import models as xwf_models
 
 from entropy.base import TitleMixin, CreatedMixin, ModifiedMixin
-from rea.noconflict import classmaker
-from rea.models.core import REAModel
+
+from .noconflict import classmaker
+from .models.core import REAModel
+
 
 logger = logging.getLogger(__name__)
 
