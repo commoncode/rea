@@ -20,5 +20,6 @@ setup( name='rea',
     install_requires = [
         'Django>=1.4',
         'django-polymorphic',
+        'django-xworkflows',
     ]
 )
