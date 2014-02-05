@@ -5,8 +5,8 @@ from django_xworkflows import models as xwf_models
 
 from entropy.base import TitleMixin, CreatedMixin, ModifiedMixin
 
-from .noconflict import classmaker
-from .models.core import REAModel
+from ..noconflict import classmaker
+from .core import REAModel
 
 
 logger = logging.getLogger(__name__)
