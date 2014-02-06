@@ -1,6 +1,6 @@
 from django.db import models
 
-from .models.core import REAModel
+from cqrs.mongo import CQRSPolymorphicModel
 from .models import LineMixin
 
 
@@ -25,7 +25,7 @@ class DecrementCommitment(CommitmentLineMixin):
         app_label = "rea"
 
 
-class Commitment(REAModel):
+class Commitment(CQRSPolymorphicModel):
     """
     Essentially our reciprocity
     """

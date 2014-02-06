@@ -1,9 +1,9 @@
 from entropy.base import SlugMixin, TitleMixin
 
-from .models.core import REAModel
+from cqrs.mongo import CQRSPolymorphicModel
 
 
-class Agent(REAModel, TitleMixin):
+class Agent(CQRSPolymorphicModel, TitleMixin):
 
     class Meta:
         app_label = "rea"

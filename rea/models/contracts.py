@@ -5,14 +5,14 @@ from django_xworkflows import models as xwf_models
 
 from entropy.base import TitleMixin, CreatedMixin, ModifiedMixin
 
-from .noconflict import classmaker
-from .models.core import REAModel
+from ..noconflict import classmaker
+from cqrs.mongo import CQRSPolymorphicModel
 
 
 logger = logging.getLogger(__name__)
 
 
-class Contract(xwf_models.WorkflowEnabled, REAModel, TitleMixin):
+class Contract(xwf_models.WorkflowEnabled, CQRSPolymorphicModel, TitleMixin):
     """
     """
     __metaclass__ = classmaker()
@@ -21,14 +21,14 @@ class Contract(xwf_models.WorkflowEnabled, REAModel, TitleMixin):
         app_label = 'rea'
 
 
-class Clause(REAModel):
+class Clause(CQRSPolymorphicModel):
     """
     """
     class Meta:
         app_label = "rea"
 
 
-class ClauseRule(REAModel, CreatedMixin, ModifiedMixin):
+class ClauseRule(CQRSPolymorphicModel, CreatedMixin, ModifiedMixin):
 
     clause = models.ForeignKey('Clause',
         related_name="%(class)s_set")
@@ -47,7 +47,7 @@ class ClauseRule(REAModel, CreatedMixin, ModifiedMixin):
         app_label = "rea"
 
 
-class ContractClause(REAModel):
+class ContractClause(CQRSPolymorphicModel):
     """
     """
     contract = models.ForeignKey('Contract')

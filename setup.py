@@ -17,8 +17,13 @@ setup( name='rea',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
+    dependency_links = [
+        'http://github.com/commoncode/cqrs/tarball/master#egg=cqrs-0.0.1',
+    ],
     install_requires = [
         'Django>=1.4',
         'django-polymorphic',
+        'django-xworkflows',
+        'cqrs',
     ]
 )

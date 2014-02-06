@@ -1,9 +1,9 @@
 from django.db import models
 
-from .core import REAModel
+from cqrs.mongo import CQRSPolymorphicModel
 
 
-class LineMixin(REAModel):
+class LineMixin(CQRSPolymorphicModel):
     """
     Mixin for Increment and Decrement lines
     """

@@ -1,6 +1,6 @@
 from django.db import models
 
-from rea.models.core import REAModel
+from cqrs.mongo import CQRSPolymorphicModel
 from rea.models import LineMixin
 
 
@@ -24,7 +24,7 @@ class DecrementLine(LineMixin):
         app_label = "rea"
 
 
-class Event(REAModel):
+class Event(CQRSPolymorphicModel):
     """
     Essentialy our ledger
     """
