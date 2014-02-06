@@ -4,9 +4,9 @@ from django.db import models
 from django_xworkflows import models as xwf_models
 
 from entropy.base import TitleMixin, CreatedMixin, ModifiedMixin
+from cqrs.mongo import CQRSPolymorphicModel
 
 from ..noconflict import classmaker
-from cqrs.mongo import CQRSPolymorphicModel
 
 
 logger = logging.getLogger(__name__)
