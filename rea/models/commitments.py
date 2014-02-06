@@ -2,7 +2,7 @@ from django.db import models
 
 from cqrs.mongo import CQRSPolymorphicModel
 
-from .models import LineMixin
+from . import LineMixin
 
 
 class CommitmentLineMixin(LineMixin):
