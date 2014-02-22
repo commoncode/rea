@@ -3,6 +3,4 @@ from cqrs.mongo import CQRSPolymorphicModel
 
 
 class Resource(CQRSPolymorphicModel, TitleMixin, SlugMixin):
-
-    class Meta:
-        app_label = "rea"
+	pass

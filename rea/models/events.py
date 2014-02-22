@@ -5,29 +5,25 @@ from rea.models import LineMixin
 
 
 class IncrementLine(LineMixin):
-    """
+    '''
     The increment flow exchange of an economic event
     (Ie, the increased cash)
-    """
-
-    class Meta:
-        app_label = "rea"
+    '''
+    pass
 
 
 class DecrementLine(LineMixin):
-    """
+    '''
     The decrement flow exchange of an economic event
     (Ie, the decreased resource)
-    """
-
-    class Meta:
-        app_label = "rea"
+    '''
+    pass
 
 
 class Event(CQRSPolymorphicModel):
-    """
+    '''
     Essentialy our ledger
-    """
+    '''
     commitment = models.ForeignKey(
         'rea.Commitment',
         blank=True,
@@ -42,6 +38,3 @@ class Event(CQRSPolymorphicModel):
 
     increment = models.ForeignKey(IncrementLine)
     decrement = models.ForeignKey(DecrementLine)
-
-    class Meta:
-        app_label = "rea"

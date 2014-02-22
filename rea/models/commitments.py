@@ -6,30 +6,23 @@ from . import LineMixin
 
 
 class CommitmentLineMixin(LineMixin):
-    """
-    """
+
     class Meta:
         abstract = True
 
 
 class IncrementCommitment(CommitmentLineMixin):
-    """
-    """
-    class Meta:
-        app_label = "rea"
+    pass
 
 
 class DecrementCommitment(CommitmentLineMixin):
-    """
-    """
-    class Meta:
-        app_label = "rea"
+    pass
 
 
 class Commitment(CQRSPolymorphicModel):
-    """
+    '''
     Essentially our reciprocity
-    """
+    '''
     contract = models.ForeignKey('rea.Contract')
 
     occured_at = models.DateTimeField(
@@ -38,10 +31,11 @@ class Commitment(CQRSPolymorphicModel):
         auto_now_add=True
     )
 
-    increment = models.ForeignKey(IncrementCommitment,
-        related_name="%(app_label)s_%(class)s_increment_commitments")
-    decrement = models.ForeignKey(DecrementCommitment,
-        related_name="%(app_label)s_%(class)s_decrement_commitments")
-
-    class Meta:
-        app_label = "rea"
+    increment = models.ForeignKey(
+        IncrementCommitment,
+        related_name='%(app_label)s_%(class)s_increment_commitments'
+    )
+    decrement = models.ForeignKey(
+        DecrementCommitment,
+        related_name='%(app_label)s_%(class)s_decrement_commitments'
+    )

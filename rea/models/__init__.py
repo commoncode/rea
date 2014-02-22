@@ -16,7 +16,6 @@ class LineMixin(CQRSPolymorphicModel):
     quantity = models.FloatField()
 
     class Meta:
-        app_label = "rea"
         abstract = True
 
 
