@@ -7,7 +7,7 @@ from entropy.base import (
     TextMixin, TitleMixin, CreatedMixin, ModifiedMixin, OrderingMixin
 )
 
-from cqrs.mongo import CQRSPolymorphicModel
+from cqrs.models import CQRSPolymorphicModel
 from cqrs.noconflict import classmaker
 
 from rea.settings import REA_RECEIVING_AGENT_MODEL, REA_PROVIDING_AGENT_MODEL

@@ -1,6 +1,6 @@
 from django.db import models
 
-from cqrs.mongo import CQRSPolymorphicModel
+from cqrs.models import CQRSPolymorphicModel
 
 
 class LineMixin(CQRSPolymorphicModel):
